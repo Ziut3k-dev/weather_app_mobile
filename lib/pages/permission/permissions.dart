@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:waether/main.dart';
-import 'package:waether/pages/home/home.dart';
 
 class Permissions extends StatefulWidget {
   const Permissions({super.key});

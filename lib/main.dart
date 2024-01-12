@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:intl/date_symbol_data_local.dart';
-
-// import 'package:waether/pages/home/home.dart';
-// import 'package:waether/pages/splash/splash.dart';
-// import 'package:waether/pages/weather/air.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:waether/pages/splash/splash.dart';
 
-void main() {
+Future<void> main() async {
+  await dotenv.load(fileName: '.env');
   runApp(const WeatherApp());
 }
 
@@ -28,5 +25,5 @@ class WeatherApp extends StatelessWidget {
 
 class Constants {
   static const String appTitle = 'Weather Clear';
-  static const String token = "be76c9ddaab299005686b742232b840b";
+  static String token = dotenv.env['API_KEY'] as String;
 }

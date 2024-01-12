@@ -1,3 +1,4 @@
+
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -6,7 +7,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:waether/main.dart';
 import 'package:waether/pages/home/home.dart';
 import 'package:waether/pages/permission/permissions.dart';
-import 'package:waether/pages/weather/weather.dart';
 import 'package:weather/weather.dart';
 
 class Splash extends StatefulWidget {
@@ -105,7 +105,8 @@ class _SplashState extends State<Splash> {
   }
 
   Future<void> executeOnceAfterBuild() async {
-    WeatherFactory wf = WeatherFactory(
+    log(Constants.token);
+      WeatherFactory wf = WeatherFactory(
       Constants.token,
       language: Language.POLISH,
     );
