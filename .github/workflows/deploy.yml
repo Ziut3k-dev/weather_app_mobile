@@ -19,12 +19,9 @@ jobs:
         with:
           flutter-version: '3.16.5'
       - run: flutter pub get
+      - run: echo "API_KEY=${{ secrets.API_KEY }}" >> .env
       - run: flutter build apk
-        env:
-          API_KEY : ${{ secrets.API_KEY }}
       - run: flutter build ios --release --no-codesign
-        env:
-          API_KEY: ${{ secrets.API_KEY }}
       - uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
