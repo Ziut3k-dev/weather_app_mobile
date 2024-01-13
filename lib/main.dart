@@ -25,5 +25,6 @@ class WeatherApp extends StatelessWidget {
 
 class Constants {
   static const String appTitle = 'Weather Clear';
-  static String token = dotenv.env['API_KEY'] as String;
+  static String token = dotenv.get('API_KEY');
+
 }

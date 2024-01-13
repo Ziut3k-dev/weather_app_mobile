@@ -1,6 +1,3 @@
-
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,6 +8,7 @@ import 'package:weather/weather.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
+
   @override
   State<Splash> createState() => _SplashState();
 }
@@ -105,14 +103,15 @@ class _SplashState extends State<Splash> {
   }
 
   Future<void> executeOnceAfterBuild() async {
-    log(Constants.token);
+    print(Constants.token);
       WeatherFactory wf = WeatherFactory(
-      Constants.token,
-      language: Language.POLISH,
-    );
-    Weather w = await wf.currentWeatherByCityName('Włocławek, PL');
-    // log(w.toJson().toString());
-    navigateToWeatherScreen(w);
+        Constants.token,
+        language: Language.POLISH,
+      );
+      Weather w = await wf.currentWeatherByCityName('Włocławek, PL');
+      // log(w.toJson().toString());
+      navigateToWeatherScreen(w);
+
   }
 
   void navigateToWeatherScreen(Weather weather) {
