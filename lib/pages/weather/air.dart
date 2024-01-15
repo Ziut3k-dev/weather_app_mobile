@@ -216,7 +216,7 @@ class _AirState extends State<Air> {
                   ClipRect(
                       child: Align(
                     alignment: Alignment.topLeft,
-                    heightFactor: 1 - 0.4,
+                    heightFactor: 1 - (widget.waqiData.airQualityIndex.floorToDouble()/100),
                     child: Image.asset(
                       'assets/danger-value.png',
                       scale: 0.9,
