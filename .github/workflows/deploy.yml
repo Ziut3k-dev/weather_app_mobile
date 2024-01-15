@@ -20,7 +20,7 @@ jobs:
         with:
           flutter-version: '3.16.5'
       - run: flutter pub get
-      - run: echo "API_KEY=${{ secrets.API_KEY }}" >> .env
+      - run: echo "API_KEY=${{ secrets.API_KEY }} \n WAQI_TOKEN=${{ secrets.WAQI_TOKEN }}" >> .env
       - run: flutter build apk
       - run: flutter build ios --release --no-codesign
       - uses: actions/create-release@v1
