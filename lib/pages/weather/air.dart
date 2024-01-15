@@ -1,8 +1,10 @@
 import 'package:air_quality_waqi/air_quality_waqi.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 // import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class Air extends StatefulWidget {
   const Air({super.key, required this.waqiData});
@@ -14,6 +16,8 @@ class Air extends StatefulWidget {
 }
 
 class _AirState extends State<Air> {
+  PanelController _panelc = PanelController();
+
   late String quality;
 
   late String advice;
@@ -22,7 +26,7 @@ class _AirState extends State<Air> {
   void setupLevel(int aqi) {
     if (aqi <= 100) {
       quality = "Bardzo dobra";
-      advice = "Skorzystaj z dobrego powietrzaa i wyjdź na spacer";
+      advice = "Skorzystaj z dobrego powietrza i wyjdź na spacer";
       isGood = 1;
     } else if (aqi <= 150) {
       quality = "Nie za dobra";
@@ -157,12 +161,18 @@ class _AirState extends State<Air> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            'CAQI ',
-                            style: TextStyle(
-                              color: getBackgroundTextColor(isGood),
-                              fontSize: 16,
-                              fontWeight: FontWeight.w300,
+                          RichText(
+                            text: TextSpan(
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  _panelc.open();
+                                },
+                              text: 'CAQI ',
+                              style: TextStyle(
+                                color: getBackgroundTextColor(isGood),
+                                fontSize: 16,
+                                fontWeight: FontWeight.w300,
+                              ),
                             ),
                           ),
                           Padding(
@@ -307,7 +317,7 @@ class _AirState extends State<Air> {
                     child: Align(
                         alignment: Alignment.topLeft,
                         child: getDangerValueBottom(isGood)),
-                        // child: getDangerValueTop(isGood)),
+                    // child: getDangerValueTop(isGood)),
                   ),
                   ClipRect(
                     child: Align(
@@ -316,8 +326,7 @@ class _AirState extends State<Air> {
                             (widget.waqiData.airQualityIndex.floorToDouble() /
                                 100),
                         child: getDangerValueTop(isGood)),
-                        // child: getDangerValueBottom(isGood)),
-
+                    // child: getDangerValueBottom(isGood)),
                   ),
                 ],
               ),
@@ -381,6 +390,109 @@ class _AirState extends State<Air> {
                   )
                 ],
               ),
+            ),
+          ),
+          SlidingUpPanel(
+            controller: _panelc,
+            minHeight: 0,
+            maxHeight: 360,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(5),
+              topRight: Radius.circular(5),
+            ),
+            panel: Stack(
+              fit: StackFit.expand,
+              children: [
+                Container(
+                  padding: EdgeInsets.only(left: 10, right: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: 32),
+                      ),
+                      Text(
+                        "Indeks CAQI",
+                        style: GoogleFonts.lato(
+                          textStyle: TextStyle(
+                            color: Colors.black,
+                            fontSize: 12,
+                            height: 1.2,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 8),
+                      ),
+                      Text(
+                        "Indeks CAQI (ang. Common Air Quality Index) pozwala przedstawić sytuację w Europiie w porównywalny i łatwy do zrozumienia sposób. Wartość indeksu jest prezentowana w postaci jednej liczby. Skala ma rozpietość od 0 do wartości powyżej 100 i powyżej bardzo zanieczyszone. Im wyższa wartość wskażnika, tym większe ryzyko złego wpływu na zdrowie i sampoczucie.",
+                        style: GoogleFonts.lato(
+                          textStyle: TextStyle(
+                            color: Colors.black,
+                            fontSize: 12,
+                            height: 1.2,
+                            fontWeight: FontWeight.w300,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 14),
+                      ),
+                      Text(
+                        "Pył zawieszony PM2,5 i PM10",
+                        textAlign: TextAlign.left,
+                        style: GoogleFonts.lato(
+                          textStyle: TextStyle(
+                            color: Colors.black,
+                            fontSize: 12,
+                            height: 1.2,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 8),
+                      ),
+                      Text(
+                        "Pyły zawieszone to mieszanina bardzo małych cząstek. PM10 to wszystkie pyły mniejsze niz 10μm, natomiast w przypadku  PM2,5 nie większe niż 2,5μm. Zanieczyszczenia pyłowe mają zdolność do adsorpcji swojej powierzchni innych, bardzo szkodliwych związków chemicznych: dioksyn, furanów, metali ciężkich, czy benzo(a)pirenu - najbardziej toksycznego skłądnika smogu.",
+                        style: GoogleFonts.lato(
+                          textStyle: TextStyle(
+                            color: Colors.black,
+                            fontSize: 12,
+                            height: 1.2,
+                            fontWeight: FontWeight.w300,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Positioned(
+
+                    right: 0,
+                    top: 0,
+                    child: Container(
+                      alignment: Alignment.topLeft,
+                      child: TextButton(
+                        style: TextButton.styleFrom(
+                          textStyle: TextStyle(
+                            color: Colors.black,
+                            height: 1.2,
+                            fontWeight: FontWeight.w300,
+                          ),
+                        ),
+                        child: Icon(
+                          Icons.close,
+                          color: Colors.black,
+                          size:30
+                        ),
+                        onPressed: () {
+                          _panelc.close();
+                        },
+                      ),
+                    ))
+              ],
             ),
           ),
         ],
