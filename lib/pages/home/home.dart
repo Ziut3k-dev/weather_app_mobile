@@ -1,4 +1,4 @@
-import 'package:air_quality/air_quality.dart';
+import 'package:air_quality_waqi/air_quality_waqi.dart';
 import 'package:flutter/material.dart';
 import 'package:waether/pages/weather/weather.dart';
 import 'package:waether/pages/weather/air.dart';
@@ -8,7 +8,7 @@ class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.weather, required this.waqiData});
 
   final Weather weather;
-  final AirQualityData waqiData;
+  final AirQualityWaqiData waqiData;
   @override
   State<HomePage> createState() => _HomePageState();
 }

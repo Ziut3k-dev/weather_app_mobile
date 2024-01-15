@@ -1,4 +1,4 @@
-import 'package:air_quality/air_quality.dart';
+import 'package:air_quality_waqi/air_quality_waqi.dart';
 import 'package:flutter/material.dart';
 
 // import 'package:flutter/services.dart';
@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 class Air extends StatefulWidget {
   const Air({super.key, required this.waqiData});
 
-  final AirQualityData waqiData;
+  final AirQualityWaqiData waqiData;
 
   @override
   State<Air> createState() => _AirState();
