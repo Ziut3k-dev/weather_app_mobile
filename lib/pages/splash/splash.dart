@@ -1,3 +1,4 @@
+import 'package:permission_handler/permission_handler.dart';
 import 'package:weather_app_apk/pages/home/home.dart';
 import 'package:weather_app_apk/pages/permission/permissions.dart';
 import 'package:air_quality_waqi/air_quality_waqi.dart';
@@ -88,47 +89,42 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     super.initState();
-    checkAndNavigate();
-  }
-
-  void checkAndNavigate() {
-    if (!havePermissions()) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Permissions()),
-      );
-    } else {
-      SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-        executeOnceAfterBuild();
-      });
-    }
+    havePermissions(context);
   }
 
   Future<void> executeOnceAfterBuild() async {
     // print(Constants.token);
-      AirQualityWaqi waqi = AirQualityWaqi(Constants.waqi);
-      AirQualityWaqiData waqiData = await waqi.feedFromCity('Wloclawek');
-      // print(waqiData.toString());
-      WeatherFactory wf = WeatherFactory(
-        Constants.token,
-        language: Language.POLISH,
-      );
-      Weather w = await wf.currentWeatherByCityName('Włocławek, PL');
-      // log(w.toJson().toString());
-      navigateToWeatherScreen(w,waqiData);
-
+    AirQualityWaqi waqi = AirQualityWaqi(Constants.waqi);
+    AirQualityWaqiData waqiData = await waqi.feedFromCity('Wloclawek');
+    // print(waqiData.toString());
+    WeatherFactory wf = WeatherFactory(
+      Constants.token,
+      language: Language.POLISH,
+    );
+    Weather w = await wf.currentWeatherByCityName('Włocławek, PL');
+    // log(w.toJson().toString());
+    navigateToWeatherScreen(w, waqiData);
   }
 
   void navigateToWeatherScreen(Weather weather, AirQualityWaqiData waqiData) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => HomePage(weather: weather,waqiData:waqiData)),
+      MaterialPageRoute(
+          builder: (context) => HomePage(weather: weather, waqiData: waqiData)),
     );
   }
 
-  bool havePermissions() {
-    // Replace this with your actual logic to check permissions
-    // For example, you might use a permission plugin or some platform-specific code
-    return true;
+  void havePermissions(BuildContext context) async {
+    var perms = Permission.location.status;
+    if (await perms.isGranted) {
+      SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+        executeOnceAfterBuild();
+      });
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => PermissionsScreen()),
+      );
+    }
   }
 }
