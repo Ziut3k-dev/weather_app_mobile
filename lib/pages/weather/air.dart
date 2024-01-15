@@ -285,7 +285,7 @@ class _AirState extends State<Air> {
                         color: Colors.white,
                       ),
                       padding: EdgeInsets.only(
-                          top: 8, bottom: 8, left: 31, right: 30),
+                          top: 8, bottom: 8, left: 30, right: 30),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
