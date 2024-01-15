@@ -1,11 +1,12 @@
+import 'package:air_quality/air_quality.dart';
 import 'package:flutter/material.dart';
 
 // import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Air extends StatefulWidget {
-  const Air({super.key});
-
+  const Air({super.key, required this.waqiData});
+  final AirQualityData waqiData;
   @override
   State<Air> createState() => _AirState();
 }
@@ -61,7 +62,7 @@ class _AirState extends State<Air> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        '20',
+                        '${widget.waqiData.airQualityIndex}',
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 64,
@@ -180,7 +181,7 @@ class _AirState extends State<Air> {
                 ),
                 Padding(padding: EdgeInsets.only(top: 8)),
                 Text(
-                  'Wybrana stacja pomiarowa',
+                  'Tarnów, Do Huty',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
@@ -192,43 +193,88 @@ class _AirState extends State<Air> {
                   ),
                 ),
                 Padding(padding: EdgeInsets.only(top: 68)),
-                Divider(
-                  height: 1,
-                  indent: 10,
-                  endIndent: 10,
-                  color: Colors.black,
-                ),
-                Padding(padding: EdgeInsets.only(top: 14)),
-                Container(
-                  padding: EdgeInsets.only(left: 10, right: 10),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(6),
-                      color: Colors.white,
+              ],
+            ),
+          ),
+          Positioned(
+            left: 8,
+            right: 0,
+            top: (MediaQuery.of(context).size.width) / 2,
+            // top: 60,
+            child: Container(
+                alignment: Alignment.centerLeft,
+                child: Stack(children: [
+                  ClipRect(
+                      child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Image.asset(
+                      'assets/danger-value-negative.png',
+                      scale: 0.9,
+                      // color: Color(0xff000000),
                     ),
-                    padding:
-                        EdgeInsets.only(top: 8, bottom: 8, left: 31, right: 30),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset('assets/happy.png'),
-                        Padding(padding: EdgeInsets.only(left: 8)),
-                        Text(
-                          'Skorzystaj z dobrego powietrza i  wyjdź na spacer.',
-                          style: GoogleFonts.lato(
-                            textStyle: TextStyle(
-                              color: Colors.black,
-                              fontSize: 12,
-                              height: 1.2,
-                              fontWeight: FontWeight.w300,
+                  )),
+                  ClipRect(
+                      child: Align(
+                    alignment: Alignment.topLeft,
+                    heightFactor: 1 - 0.4,
+                    child: Image.asset(
+                      'assets/danger-value.png',
+                      scale: 0.9,
+                      color: Color(0xDD4ACF8C),
+                    ),
+                  )),
+                ])),
+          ),
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: Container(
+              alignment: Alignment.center,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Padding(padding: EdgeInsets.only(top: 62)),
+                  Divider(
+                    height: 10,
+                    thickness: 1,
+                    indent: 10,
+                    endIndent: 10,
+                    color: Colors.black,
+                  ),
+                  Padding(padding: EdgeInsets.only(top: 14)),
+                  Container(
+                    padding: EdgeInsets.only(left: 10, right: 10),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(6),
+                        color: Colors.white,
+                      ),
+                      padding: EdgeInsets.only(
+                          top: 8, bottom: 8, left: 31, right: 30),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset('assets/happy.png'),
+                          Padding(padding: EdgeInsets.only(left: 8)),
+                          Text(
+                            'Skorzystaj z dobrego powietrza i  wyjdź na spacer.',
+                            style: GoogleFonts.lato(
+                              textStyle: TextStyle(
+                                color: Colors.black,
+                                fontSize: 12,
+                                height: 1.2,
+                                fontWeight: FontWeight.w300,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                  Padding(padding: EdgeInsets.only(bottom: 24))
+                ],
+              ),
             ),
           ),
         ],

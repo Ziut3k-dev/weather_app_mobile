@@ -1,3 +1,4 @@
+import 'package:air_quality/air_quality.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -103,21 +104,24 @@ class _SplashState extends State<Splash> {
   }
 
   Future<void> executeOnceAfterBuild() async {
-    print(Constants.token);
+    // print(Constants.token);
+      AirQuality waqi = AirQuality(Constants.waqi);
+      AirQualityData waqiData = await waqi.feedFromCity('Wloclawek');
+      // print(waqiData.toString());
       WeatherFactory wf = WeatherFactory(
         Constants.token,
         language: Language.POLISH,
       );
       Weather w = await wf.currentWeatherByCityName('Włocławek, PL');
       // log(w.toJson().toString());
-      navigateToWeatherScreen(w);
+      navigateToWeatherScreen(w,waqiData);
 
   }
 
-  void navigateToWeatherScreen(Weather weather) {
+  void navigateToWeatherScreen(Weather weather, AirQualityData waqiData) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => HomePage(weather: weather)),
+      MaterialPageRoute(builder: (context) => HomePage(weather: weather,waqiData:waqiData)),
     );
   }
 

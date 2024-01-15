@@ -1,13 +1,14 @@
+import 'package:air_quality/air_quality.dart';
 import 'package:flutter/material.dart';
 import 'package:waether/pages/weather/weather.dart';
 import 'package:waether/pages/weather/air.dart';
 import 'package:weather/weather.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key, required this.weather});
+  const HomePage({super.key, required this.weather, required this.waqiData});
 
   final Weather weather;
-
+  final AirQualityData waqiData;
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -20,7 +21,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     screens = [
-      Air(),
+      Air(waqiData:widget.waqiData),
       WeatherScreen(
         weather: widget.weather,
       ),

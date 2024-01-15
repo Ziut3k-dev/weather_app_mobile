@@ -57,33 +57,6 @@ class _PermissionsState extends State<Permissions> {
                     ),
                   )
                 ],
-              )),
-          Positioned(
-              left: 0,
-              right: 0,
-              bottom: 40,
-              child: Container(
-                alignment: Alignment.center,
-                margin: EdgeInsets.only(left: 20, right: 20),
-                child: SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(Colors.white),
-                        padding: MaterialStateProperty.all(
-                            EdgeInsets.only(top: 10, bottom: 10)),
-                      ),
-                      child: Text(
-                        'Zgoda!',
-                        style: TextStyle(color: Colors.black),
-                        textAlign: TextAlign.center,
-                      ),
-                      onPressed: () => {
-                        // Navigator.push(context,
-                        // MaterialPageRoute(builder: (context) => HomePage()))
-                      },
-                    )),
               ))
         ],
       ),

@@ -26,5 +26,6 @@ class WeatherApp extends StatelessWidget {
 class Constants {
   static const String appTitle = 'Weather Clear';
   static String token = dotenv.get('API_KEY');
+  static String waqi = dotenv.get('WAQI_TOKEN');
 
 }
