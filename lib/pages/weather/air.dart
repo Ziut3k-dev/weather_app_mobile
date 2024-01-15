@@ -6,7 +6,9 @@ import 'package:google_fonts/google_fonts.dart';
 
 class Air extends StatefulWidget {
   const Air({super.key, required this.waqiData});
+
   final AirQualityData waqiData;
+
   @override
   State<Air> createState() => _AirState();
 }
@@ -22,13 +24,14 @@ class _AirState extends State<Air> {
             decoration: BoxDecoration(
               // color: Colors.transparent,
               gradient: LinearGradient(
-                  begin: Alignment.bottomLeft,
-                  end: Alignment.topRight,
-                  colors: [
-                    Color(0xff4ACF8C),
-                    Color(0xff75EDA6),
-                  ],
-                  transform: GradientRotation(0.820305)),
+                begin: Alignment.bottomLeft,
+                end: Alignment.topRight,
+                colors: [
+                  Color(0xff4ACF8C),
+                  Color(0xff75EDA6),
+                ],
+                transform: GradientRotation(0.820305),
+              ),
             ),
           ),
           Align(
@@ -36,7 +39,9 @@ class _AirState extends State<Air> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Padding(padding: EdgeInsets.only(top: 85)),
+                Padding(
+                  padding: EdgeInsets.only(top: 85),
+                ),
                 Text(
                   'Jakość powietrza',
                   style: TextStyle(
@@ -45,7 +50,9 @@ class _AirState extends State<Air> {
                     fontSize: 14,
                   ),
                 ),
-                Padding(padding: EdgeInsets.only(top: 2)),
+                Padding(
+                  padding: EdgeInsets.only(top: 2),
+                ),
                 Text(
                   'Bardzo dobra',
                   style: TextStyle(
@@ -54,7 +61,9 @@ class _AirState extends State<Air> {
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                Padding(padding: EdgeInsets.only(top: 65)),
+                Padding(
+                  padding: EdgeInsets.only(top: 65),
+                ),
                 CircleAvatar(
                   radius: 91,
                   child: Column(
@@ -69,7 +78,9 @@ class _AirState extends State<Air> {
                           fontWeight: FontWeight.w700,
                         ),
                       ),
-                      Padding(padding: EdgeInsets.only(top: 0)),
+                      Padding(
+                        padding: EdgeInsets.only(top: 0),
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -81,13 +92,17 @@ class _AirState extends State<Air> {
                               fontWeight: FontWeight.w300,
                             ),
                           ),
-                          Padding(padding: EdgeInsets.only(left: 5)),
+                          Padding(
+                            padding: EdgeInsets.only(left: 5),
+                          ),
                         ],
                       ),
                     ],
                   ),
                 ),
-                Padding(padding: EdgeInsets.only(top: 73)),
+                Padding(
+                  padding: EdgeInsets.only(top: 73),
+                ),
                 IntrinsicHeight(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -110,7 +125,9 @@ class _AirState extends State<Air> {
                                   ),
                                 ),
                               ),
-                              Padding(padding: EdgeInsets.only(top: 2)),
+                              Padding(
+                                padding: EdgeInsets.only(top: 2),
+                              ),
                               Text(
                                 '47%',
                                 textAlign: TextAlign.center,
@@ -148,7 +165,9 @@ class _AirState extends State<Air> {
                                   ),
                                 ),
                               ),
-                              Padding(padding: EdgeInsets.only(top: 2)),
+                              Padding(
+                                padding: EdgeInsets.only(top: 2),
+                              ),
                               Text(
                                 '39%',
                                 textAlign: TextAlign.center,
@@ -166,7 +185,9 @@ class _AirState extends State<Air> {
                     ],
                   ),
                 ),
-                Padding(padding: EdgeInsets.only(top: 16)),
+                Padding(
+                  padding: EdgeInsets.only(top: 16),
+                ),
                 Text(
                   'Wybrana stacja pomiarowa',
                   textAlign: TextAlign.center,
@@ -179,7 +200,9 @@ class _AirState extends State<Air> {
                     ),
                   ),
                 ),
-                Padding(padding: EdgeInsets.only(top: 8)),
+                Padding(
+                  padding: EdgeInsets.only(top: 8),
+                ),
                 Text(
                   'Tarnów, Do Huty',
                   textAlign: TextAlign.center,
@@ -192,7 +215,9 @@ class _AirState extends State<Air> {
                     ),
                   ),
                 ),
-                Padding(padding: EdgeInsets.only(top: 68)),
+                Padding(
+                  padding: EdgeInsets.only(top: 68),
+                ),
               ],
             ),
           ),
@@ -202,28 +227,35 @@ class _AirState extends State<Air> {
             top: (MediaQuery.of(context).size.width) / 2,
             // top: 60,
             child: Container(
-                alignment: Alignment.centerLeft,
-                child: Stack(children: [
+              alignment: Alignment.centerLeft,
+              child: Stack(
+                children: [
                   ClipRect(
-                      child: Align(
-                    alignment: Alignment.topLeft,
-                    child: Image.asset(
-                      'assets/danger-value-negative.png',
-                      scale: 0.9,
-                      // color: Color(0xff000000),
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Image.asset(
+                        'assets/danger-value-negative.png',
+                        scale: 0.9,
+                        // color: Color(0xff000000),
+                      ),
                     ),
-                  )),
+                  ),
                   ClipRect(
-                      child: Align(
-                    alignment: Alignment.topLeft,
-                    heightFactor: 1 - (widget.waqiData.airQualityIndex.floorToDouble()/100),
-                    child: Image.asset(
-                      'assets/danger-value.png',
-                      scale: 0.9,
-                      color: Color(0xDD4ACF8C),
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      heightFactor: 1 -
+                          (widget.waqiData.airQualityIndex.floorToDouble() /
+                              100),
+                      child: Image.asset(
+                        'assets/danger-value.png',
+                        scale: 0.9,
+                        color: Color(0xDD4ACF8C),
+                      ),
                     ),
-                  )),
-                ])),
+                  ),
+                ],
+              ),
+            ),
           ),
           Positioned(
             left: 0,
@@ -242,7 +274,9 @@ class _AirState extends State<Air> {
                     endIndent: 10,
                     color: Colors.black,
                   ),
-                  Padding(padding: EdgeInsets.only(top: 14)),
+                  Padding(
+                    padding: EdgeInsets.only(top: 14),
+                  ),
                   Container(
                     padding: EdgeInsets.only(left: 10, right: 10),
                     child: Container(
@@ -256,7 +290,9 @@ class _AirState extends State<Air> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Image.asset('assets/happy.png'),
-                          Padding(padding: EdgeInsets.only(left: 8)),
+                          Padding(
+                            padding: EdgeInsets.only(left: 8),
+                          ),
                           Text(
                             'Skorzystaj z dobrego powietrza i  wyjdź na spacer.',
                             style: GoogleFonts.lato(
@@ -272,7 +308,9 @@ class _AirState extends State<Air> {
                       ),
                     ),
                   ),
-                  Padding(padding: EdgeInsets.only(bottom: 24))
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 24),
+                  )
                 ],
               ),
             ),
