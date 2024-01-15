@@ -14,25 +14,98 @@ class Air extends StatefulWidget {
 }
 
 class _AirState extends State<Air> {
+  late String quality;
+
+  late String advice;
+  late int isGood = 3;
+
+  void setupLevel(int aqi) {
+    if (aqi <= 100) {
+      quality = "Bardzo dobra";
+      advice = "Skorzystaj z dobrego powietrzaa i wyjdź na spacer";
+      isGood = 1;
+    } else if (aqi <= 150) {
+      quality = "Nie za dobra";
+      advice = "Jeśli tylko możesz zostań w domu, załatwiaj sprawy online";
+      isGood = 2;
+    } else {
+      quality = "Bardzo zła!";
+      advice = "Zdecydowanie zostań w domu i załatwiaj sprawy online!";
+    }
+  }
+
+  AssetImage getAdviceImage(int isGood) {
+    if (isGood == 1) {
+      return AssetImage('assets/happy.png');
+    } else if (isGood == 2) {
+      return AssetImage('assets/ok.png');
+    } else {
+      return AssetImage('assets/sad.png');
+    }
+  }
+
+  LinearGradient getGradientByMood(int isGood) {
+    if (isGood == 1) {
+      return LinearGradient(
+          begin: Alignment.bottomLeft,
+          end: Alignment.topRight,
+          colors: [
+            Color(0xff4acf8c),
+            Color(0xff75eda6),
+          ]);
+    } else if (isGood == 2) {
+      return LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Color(0xfffbda61), Color(0xfff76b1c)]);
+    } else {
+      return LinearGradient(
+          begin: Alignment.bottomLeft,
+          end: Alignment.topRight,
+          colors: [Color(0xfff4003a), Color(0xffff8888)]);
+    }
+  }
+
+  Widget getDangerValueBottom(int isGood) {
+    if (isGood == 1 || isGood == 2) {
+      return Image.asset('assets/danger-value-negative.png', scale: 0.9);
+    } else {
+      return Image.asset('assets/danger-value.png', scale: 0.9);
+    }
+  }
+
+  Widget getDangerValueTop(int isGood) {
+    if (isGood == 1) {
+      return Image.asset('assets/danger-value-negative.png',
+          color: Color(0xff4acf8c), scale: 0.9);
+    } else if (isGood == 2) {
+      return Image.asset('assets/danger-value-negative.png',
+          color: Color(0xfffbda61), scale: 0.9);
+    } else {
+      return Image.asset('assets/danger-value.png',
+          color: Color(0xfff4003a), scale: 0.9);
+    }
+  }
+
+  Color getBackgroundTextColor(int isGood) {
+    if (isGood == 1) {
+      return Colors.black;
+    } else {
+      return Colors.white;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    setupLevel(widget.waqiData.airQualityIndex);
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
           Container(
             decoration: BoxDecoration(
-              // color: Colors.transparent,
-              gradient: LinearGradient(
-                begin: Alignment.bottomLeft,
-                end: Alignment.topRight,
-                colors: [
-                  Color(0xff4ACF8C),
-                  Color(0xff75EDA6),
-                ],
-                transform: GradientRotation(0.820305),
-              ),
-            ),
+                // color: Colors.transparent,
+                gradient: getGradientByMood(isGood)),
           ),
           Align(
             alignment: FractionalOffset.center,
@@ -45,7 +118,7 @@ class _AirState extends State<Air> {
                 Text(
                   'Jakość powietrza',
                   style: TextStyle(
-                    color: Colors.black,
+                    color: getBackgroundTextColor(isGood),
                     fontWeight: FontWeight.w300,
                     fontSize: 14,
                   ),
@@ -54,9 +127,9 @@ class _AirState extends State<Air> {
                   padding: EdgeInsets.only(top: 2),
                 ),
                 Text(
-                  'Bardzo dobra',
+                  quality,
                   style: TextStyle(
-                    color: Colors.black,
+                    color: getBackgroundTextColor(isGood),
                     fontSize: 22,
                     fontWeight: FontWeight.w700,
                   ),
@@ -73,7 +146,7 @@ class _AirState extends State<Air> {
                       Text(
                         '${widget.waqiData.airQualityIndex}',
                         style: TextStyle(
-                          color: Colors.black,
+                          color: getBackgroundTextColor(isGood),
                           fontSize: 64,
                           fontWeight: FontWeight.w700,
                         ),
@@ -87,7 +160,7 @@ class _AirState extends State<Air> {
                           Text(
                             'CAQI ',
                             style: TextStyle(
-                              color: Colors.black,
+                              color: getBackgroundTextColor(isGood),
                               fontSize: 16,
                               fontWeight: FontWeight.w300,
                             ),
@@ -118,7 +191,7 @@ class _AirState extends State<Air> {
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.lato(
                                   textStyle: TextStyle(
-                                    color: Colors.black,
+                                    color: getBackgroundTextColor(isGood),
                                     fontWeight: FontWeight.w300,
                                     fontSize: 14,
                                     height: 1.2,
@@ -129,12 +202,12 @@ class _AirState extends State<Air> {
                                 padding: EdgeInsets.only(top: 2),
                               ),
                               Text(
-                                '47%',
+                                '${widget.waqiData.iaqi.pm25.floor()}%',
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.lato(
                                   textStyle: TextStyle(
                                     fontSize: 22,
-                                    color: Colors.black,
+                                    color: getBackgroundTextColor(isGood),
                                     height: 1.2,
                                     fontWeight: FontWeight.w700,
                                   ),
@@ -144,7 +217,7 @@ class _AirState extends State<Air> {
                       ),
                       VerticalDivider(
                         width: 48,
-                        color: Colors.black,
+                        color: getBackgroundTextColor(isGood),
                         thickness: 2,
                       ),
                       SizedBox(
@@ -158,7 +231,7 @@ class _AirState extends State<Air> {
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.lato(
                                   textStyle: TextStyle(
-                                    color: Colors.black,
+                                    color: getBackgroundTextColor(isGood),
                                     fontWeight: FontWeight.w300,
                                     height: 1.2,
                                     fontSize: 14,
@@ -169,13 +242,13 @@ class _AirState extends State<Air> {
                                 padding: EdgeInsets.only(top: 2),
                               ),
                               Text(
-                                '39%',
+                                '${widget.waqiData.iaqi.pm10.floor()}%',
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.lato(
                                   textStyle: TextStyle(
                                     fontSize: 22,
                                     height: 1.2,
-                                    color: Colors.black,
+                                    color: getBackgroundTextColor(isGood),
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
@@ -193,7 +266,7 @@ class _AirState extends State<Air> {
                   textAlign: TextAlign.center,
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                      color: Colors.black,
+                      color: getBackgroundTextColor(isGood),
                       fontSize: 12,
                       height: 1.2,
                       fontWeight: FontWeight.w300,
@@ -204,11 +277,11 @@ class _AirState extends State<Air> {
                   padding: EdgeInsets.only(top: 8),
                 ),
                 Text(
-                  'Tarnów, Do Huty',
+                  widget.waqiData.place,
                   textAlign: TextAlign.center,
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                      color: Colors.black,
+                      color: getBackgroundTextColor(isGood),
                       fontSize: 14,
                       height: 1.2,
                       fontWeight: FontWeight.w400,
@@ -232,26 +305,19 @@ class _AirState extends State<Air> {
                 children: [
                   ClipRect(
                     child: Align(
-                      alignment: Alignment.topLeft,
-                      child: Image.asset(
-                        'assets/danger-value-negative.png',
-                        scale: 0.9,
-                        // color: Color(0xff000000),
-                      ),
-                    ),
+                        alignment: Alignment.topLeft,
+                        child: getDangerValueBottom(isGood)),
+                        // child: getDangerValueTop(isGood)),
                   ),
                   ClipRect(
                     child: Align(
-                      alignment: Alignment.topLeft,
-                      heightFactor: 1 -
-                          (widget.waqiData.airQualityIndex.floorToDouble() /
-                              100),
-                      child: Image.asset(
-                        'assets/danger-value.png',
-                        scale: 0.9,
-                        color: Color(0xDD4ACF8C),
-                      ),
-                    ),
+                        alignment: Alignment.topLeft,
+                        heightFactor: 1 -
+                            (widget.waqiData.airQualityIndex.floorToDouble() /
+                                100),
+                        child: getDangerValueTop(isGood)),
+                        // child: getDangerValueBottom(isGood)),
+
                   ),
                 ],
               ),
@@ -272,7 +338,7 @@ class _AirState extends State<Air> {
                     thickness: 1,
                     indent: 10,
                     endIndent: 10,
-                    color: Colors.black,
+                    color: getBackgroundTextColor(isGood),
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: 14),
@@ -289,15 +355,17 @@ class _AirState extends State<Air> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Image.asset('assets/happy.png'),
+                          Image(
+                            image: getAdviceImage(isGood),
+                          ),
                           Padding(
                             padding: EdgeInsets.only(left: 8),
                           ),
                           Text(
-                            'Skorzystaj z dobrego powietrza i  wyjdź na spacer.',
+                            advice,
                             style: GoogleFonts.lato(
                               textStyle: TextStyle(
-                                color: Colors.black,
+                                color: getBackgroundTextColor(isGood),
                                 fontSize: 12,
                                 height: 1.2,
                                 fontWeight: FontWeight.w300,

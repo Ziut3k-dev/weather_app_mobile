@@ -5,10 +5,10 @@ packages:
     dependency: "direct main"
     description:
       name: air_quality_waqi
-      sha256: bf504112ca2fb5bb47bdd58fe466f31936726a52b9fb628bb674c606e3971f82
+      sha256: ff47f8fbc352af432df3f9fa3d4b91fbb3b690dcf194e45a05d2cbf12cfdd3b0
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "1.2.0"
   async:
     dependency: transitive
     description:

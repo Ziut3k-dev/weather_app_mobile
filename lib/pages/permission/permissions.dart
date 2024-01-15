@@ -1,6 +1,6 @@
+import 'package:weather_app_apk/main.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:waether/main.dart';
 
 class Permissions extends StatefulWidget {
   const Permissions({super.key});

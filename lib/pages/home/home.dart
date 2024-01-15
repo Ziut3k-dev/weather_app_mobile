@@ -1,8 +1,9 @@
+import 'package:weather_app_apk/pages/weather/air.dart';
+import 'package:weather_app_apk/pages/weather/weather.dart';
 import 'package:air_quality_waqi/air_quality_waqi.dart';
 import 'package:flutter/material.dart';
-import 'package:waether/pages/weather/weather.dart';
-import 'package:waether/pages/weather/air.dart';
 import 'package:weather/weather.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.weather, required this.waqiData});

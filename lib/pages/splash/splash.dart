@@ -1,11 +1,12 @@
+import 'package:weather_app_apk/pages/home/home.dart';
+import 'package:weather_app_apk/pages/permission/permissions.dart';
 import 'package:air_quality_waqi/air_quality_waqi.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:waether/main.dart';
-import 'package:waether/pages/home/home.dart';
-import 'package:waether/pages/permission/permissions.dart';
 import 'package:weather/weather.dart';
+
+import '../../main.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
