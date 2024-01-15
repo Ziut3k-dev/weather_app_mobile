@@ -1,10 +1,9 @@
-name: Flutter
+name: Build Weather Clear app and release with GitHub Release
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    tags:
+      - 'v*'
 
 jobs:
   build:
